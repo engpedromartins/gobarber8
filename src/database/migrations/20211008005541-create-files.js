@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    return await queryInterface.createTable('users', {
+    return await queryInterface.createTable('files', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -13,19 +13,11 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-      }, email: {
+      },
+      path: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-      },
-      password_hash: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      provider: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
@@ -43,7 +35,7 @@ module.exports = {
   down: async (queryInterface) => {
 
 
-    return await queryInterface.dropTable('users');
+    return await queryInterface.dropTable('files');
 
   }
 };

@@ -43,8 +43,10 @@ class UserController {
 
     if (!(await schema.isValid(req.body))) return res.status(400).json({ error: "Validation fails" })
     const { email, oldPassword } = req.body
-
+    console.log('AWWEE', req.userId)
     const user = await User.findByPk(req.userId);
+    console.log(user)
+    console.log('=>>>>>>>>', email)
     if (email !== user.email) {
 
       const userExist = await User.findOne({ where: { email: email } })
