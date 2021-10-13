@@ -6,8 +6,9 @@ import File from "../models/File";
 import * as Yup from 'yup'
 import Notification from "../schemas/Notification";
 
-import Mail from '../../lib/Mail'
+import Queue from "../../lib/Queue";
 
+import CancellationMail from "../jobs/CancellationMail";
 class AppointmentController {
   async index(req, res) {
     const { page = 1 } = req.query
@@ -61,10 +62,10 @@ class AppointmentController {
     }
 
     //verifica se o usuario e o mesmo fornecedor de serviço
-    if (req.userId === provider_id) {
-      return res.status(401)
-        .json({ error: 'Não é possivel realizar um agendamento com voce mesmo' })
-    }
+    // if (req.userId === provider_id) {
+    //   return res.status(401)
+    //     .json({ error: 'Não é possivel realizar um agendamento com voce mesmo' })
+    // }
 
     //check for past dates
     const hourStart = startOfHour(parseISO(date))
@@ -146,19 +147,8 @@ class AppointmentController {
 
     await appointment.save()
 
-    await Mail.sendMail({
-      to: `${appointment.provider.name} <${appointment.provider.email}>`,
-      subject: 'Agendamento Cancelado',
-      template: 'cancelation',
-      context: {
-        provider: appointment.provider.name,
-        user: appointment.user.name,
-        date: format(
-          appointment.date,
-          "'dia' dd 'de' MMMM', às' H:mm'h'",
-          { locale: pt }
-        )
-      }
+    await Queue.add(CancellationMail.key, {
+      appointment,
     })
 
     return res.status(401).json(appointment)
