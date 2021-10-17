@@ -8,10 +8,13 @@
     "queue": "nodemon src/queue.js"
   },
   "dependencies": {
+    "@sentry/node": "^6.13.3",
+    "@sentry/tracing": "^6.13.3",
     "bcrypt": "^5.0.1",
     "bee-queue": "^1.4.0",
     "date-fns": "^2.0.0-beta.5",
     "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
     "express-handlebars": "^5.3.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
@@ -22,6 +25,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5",
+    "youch": "^2.2.2",
     "yup": "^0.32.9"
   },
   "devDependencies": {
