@@ -13,6 +13,7 @@
     "bcrypt": "^5.0.1",
     "bee-queue": "^1.4.0",
     "date-fns": "^2.0.0-beta.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-handlebars": "^5.3.4",

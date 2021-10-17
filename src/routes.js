@@ -15,6 +15,9 @@ import AvailableController from './app/controllers/AvailableController';
 const routes = new Router();
 const upload = multer(multerConfig)
 
+routes.get('/', (req, res) => {
+  res.status(200).json({ message: 'Servidor upzeiro' })
+})
 routes.post('/users', UserController.store)
 routes.post('/sessions', SessionController.store)
 
